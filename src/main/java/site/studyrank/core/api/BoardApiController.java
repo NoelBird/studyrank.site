@@ -19,7 +19,7 @@ public class BoardApiController {
 
     private final PageService pageService;
 
-    @GetMapping("/pages")
+    @GetMapping("/api/v1/pages")
     public Result listPages() {
         List<Page> list = pageService.list();
         List<ReadPageResponse> collect = list.stream()
@@ -27,13 +27,13 @@ public class BoardApiController {
         return new Result<>(collect);
     }
 
-    @PostMapping("/pages")
+    @PostMapping("/api/v1/pages")
     public CreatePageResponse createPage(@RequestBody @Valid Page page) {
         Long id = pageService.savePage(page);
         return new CreatePageResponse(id);
     }
 
-    @GetMapping("/pages/{pageId}")
+    @GetMapping("/api/v1/pages/{pageId}")
     public ReadPageResponse readPage(@PathVariable("pageId") Long id) {
         Page page = pageService.readPage(id);
         return new ReadPageResponse(page);
